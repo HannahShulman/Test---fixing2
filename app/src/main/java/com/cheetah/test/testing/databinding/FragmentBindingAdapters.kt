@@ -28,7 +28,6 @@ class FragmentBindingAdapters constructor(val fragment: Fragment) {
         val option = RequestOptions()
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.error_image)
-        Log.d("urlDisplay", url)
         Glide.with(view.context).setDefaultRequestOptions(option)
             .load(url).into(view)
     }
