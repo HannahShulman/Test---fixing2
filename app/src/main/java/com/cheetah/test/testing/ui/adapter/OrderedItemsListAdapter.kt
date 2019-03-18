@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.cheetah.test.testing.AppExecutors
 import com.cheetah.test.testing.R
 import com.cheetah.test.testing.databinding.SingleOrederedItemInformationLayoutBinding
-import com.cheetah.test.testing.ui.adapter.DataBoundListAdapter
 import com.cheetah.test.testing.vo.OrderItemsInformation
 import com.cheetah.test.testing.vo.PackagingTypes
 

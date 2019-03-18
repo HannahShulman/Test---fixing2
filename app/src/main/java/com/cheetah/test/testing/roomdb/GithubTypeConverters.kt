@@ -2,13 +2,8 @@ package com.cheetah.test.testing.roomdb
 
 import androidx.room.TypeConverter
 import com.cheetah.test.testing.vo.OrderItemsInformation
-import com.cheetah.test.testing.vo.Product
 import com.google.gson.Gson
-import com.google.gson.JsonObject
-import org.json.JSONObject
-import timber.log.Timber
 import com.google.gson.reflect.TypeToken
-import java.util.*
 
 
 /**
