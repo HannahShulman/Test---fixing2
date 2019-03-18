@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.cheetah.test.testing.vo.PackagingTypes" />
+
+        <import type="com.cheetah.test.testing.util.StringUtil" />
+
+        <variable
+            name="item_info"
+            type="com.cheetah.test.testing.vo.OrderItemsInformation" />
+
+        <variable
+            name="packageType"
+            type="com.cheetah.test.testing.vo.PackagingTypes" />
+
+        <variable
+        name="singlePrice"
+        type="Integer"/>
+
+        <variable
+            name="imageUrl"
+            type="String"/>
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/product_image_iv"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:src="@{item_info.product.unitPhotoFilename}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!---->
+        <TextView
+            android:id="@+id/product_title_tv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{item_info.product.name}"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/product_image_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/product_image_iv"
+            app:layout_constraintTop_toTopOf="@id/product_image_iv"
+            tools:text="Product Name" />
+
+
+        <TextView
+            android:id="@+id/is_replaceable_indicator"
+            android:layout_width="wrap_content"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="@{item_info.substitutable  ? @color/green_color : @color/red_color}"
+            android:text="@{item_info.substitutable  ? @string/substitutable : @string/un_substitutable}"
+            app:layout_constraintBottom_toTopOf="@id/single_product_price_tv"
+            app:layout_constraintStart_toEndOf="@id/product_image_iv"
+            app:layout_constraintTop_toBottomOf="@+id/product_image_iv"
+            tools:background="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="substitutable"/>
+
+
+        <TextView
+            android:id="@+id/single_product_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+        android:text="@{StringUtil.INSTANCE.convertIntoToPrice(singlePrice)}"
+        app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="$18.00" />
+
+
+        <TextView
+            android:id="@+id/unit_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:text="@{StringUtil.INSTANCE.patternForPackageType(item_info.packagingType)}"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/single_product_price_tv"
+            app:layout_constraintStart_toEndOf="@+id/single_product_price_tv"
+            app:layout_constraintTop_toTopOf="@+id/single_product_price_tv"
+            tools:text="/Unit" />
+
+        <View
+            android:id="@+id/seperation1"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="7dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/unit_text_view" />
+
+        <TextView
+            android:id="@+id/total_cost_for_product_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{StringUtil.INSTANCE.getTotalCostString(item_info.subTotal)}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/seperation1"
+            tools:text="Total: 25.00" />
+
+
+        <View
+            android:id="@+id/seperation2"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="7dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/total_cost_for_product_tv" />
+
+        <TextView
+            android:id="@+id/product_quantity_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="4dp"
+            android:text="@{StringUtil.INSTANCE.getQuantityString(item_info.quantity)}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/seperation2"
+            tools:text="Qut: 3" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

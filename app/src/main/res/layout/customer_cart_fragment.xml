@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.cheetah.test.testing.util.StringUtil"/>
+        <import type="com.cheetah.test.testing.vo.Status"/>
+        <import type="android.view.View"/>
+        <variable
+            name="loadingState"
+            type="com.cheetah.test.testing.vo.Status"/>
+
+        <variable name="customerCart"
+                  type="com.cheetah.test.testing.vo.CustomerCart"/>
+
+
+        <variable name="viewModel"
+            type="com.cheetah.test.testing.ui.customercart.CustomerCartViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                       android:orientation="vertical"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent">
+
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/top_base_layout">
+
+            <EditText
+                android:id="@+id/search_et"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:hint="Type something"
+                android:gravity="bottom"/>
+
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/searchBtn"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Search"
+                android:layout_marginEnd="16dp"
+                android:textStyle="bold"
+                android:layout_marginStart="16sp"/>
+
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Retry"
+            android:visibility="@{loadingState ==Status.LOADING ? View.VISIBLE :View.GONE}"
+            android:id="@+id/loading_indication"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Retry"
+            android:visibility="@{loadingState ==Status.ERROR ? View.VISIBLE :View.GONE}"
+            android:id="@+id/loading_Failed_Btn"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/top_base_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/base_layout"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                tools:listitem="@layout/single_oredered_item_information_layout"
+                android:id="@+id/ordered_item_list" />
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="70dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/base_layout">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/total_cart_cost"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:text="@{StringUtil.INSTANCE.getTotalCostString(customerCart.cartTotal)}"
+                android:textStyle="bold"
+                android:layout_marginStart="16sp"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

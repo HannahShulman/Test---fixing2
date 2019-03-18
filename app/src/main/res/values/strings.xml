@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Testing</string>
+    <string name="un_substitutable">un_substitutable</string>
+    <string name="substitutable">substitutable</string>
+</resources>

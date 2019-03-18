@@ -1,0 +1,37 @@
+package com.cheetah.test.testing.repository
+
+import androidx.lifecycle.LiveData
+import com.cheetah.test.testing.AppExecutors
+import com.cheetah.test.testing.api.ApiResponse
+import com.cheetah.test.testing.remote.NetworkBoundResource
+import com.cheetah.test.testing.roomdb.RoomDB
+import com.cheetah.test.testing.vo.CustomerCart
+import com.cheetah.test.testing.vo.Resource
+
+
+/**
+ * This class is responsible for all business logic needed for getting information from remote/local -
+ */
+
+class CustomerCartRepository(private val appExecutors: AppExecutors, private val roomDB: RoomDB, private val remoteDataSource: ICustomerCartDataSource) {
+
+    fun getCustomerCart(): LiveData<Resource<CustomerCart>> {
+
+        return object : NetworkBoundResource<CustomerCart, CustomerCart>(appExecutors) {
+            override fun saveCallResult(item: CustomerCart) {
+                roomDB.customerCartDao().insertCart(item)
+            }
+
+            override fun shouldFetch(data: CustomerCart?): Boolean {
+                return data == null
+            }
+
+            override fun loadFromDb(): LiveData<CustomerCart> = roomDB.customerCartDao().loadCart()
+
+            override fun createCall(): LiveData<ApiResponse<CustomerCart>> {
+                return remoteDataSource.getCustomerCart()
+            }
+
+        }.asLiveData()
+    }
+}
