@@ -11,7 +11,8 @@ class App : Application(){
         netModule,
         customerCartRepositoryModule,
         CustomerCartViewModelModules,
-        storageModule
+        storageModule,
+        orderedItemsRepositoryModule
     )
 
     override fun onCreate() {

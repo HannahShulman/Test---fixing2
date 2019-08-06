@@ -91,7 +91,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 tools:listitem="@layout/single_oredered_item_information_layout"
-                android:id="@+id/ordered_item_list" />
+                android:id="@+id/ordered_item_list"
+                app:data="@{viewModel.orderedItems}"/>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="70dp"
             android:background="@color/colorPrimary"

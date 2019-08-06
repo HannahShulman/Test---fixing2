@@ -1,10 +1,16 @@
 package com.cheetah.test.testing.vo
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.cheetah.test.testing.roomdb.DatabaseTypeConverters
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
+
+@Entity
+@TypeConverters(DatabaseTypeConverters::class)
 data class OrderItemsInformation (
     @PrimaryKey
     @SerializedName("id")

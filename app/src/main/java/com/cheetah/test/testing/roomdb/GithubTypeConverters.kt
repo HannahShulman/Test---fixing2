@@ -2,6 +2,7 @@ package com.cheetah.test.testing.roomdb
 
 import androidx.room.TypeConverter
 import com.cheetah.test.testing.vo.OrderItemsInformation
+import com.cheetah.test.testing.vo.Product
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -11,6 +12,20 @@ import com.google.gson.reflect.TypeToken
  * so that db can hold and provide back(convert back)as object
  */
 object DatabaseTypeConverters {
+
+    @TypeConverter
+    @JvmStatic
+    fun productToString(product: Product): String? {
+        return Gson().toJson(product).toString()
+    }
+
+
+    @TypeConverter
+    @JvmStatic
+    fun StringtoProduct(product: String): Product? {
+        return Gson().fromJson(product, Product::class.java)
+    }
+
 
     @TypeConverter
     @JvmStatic

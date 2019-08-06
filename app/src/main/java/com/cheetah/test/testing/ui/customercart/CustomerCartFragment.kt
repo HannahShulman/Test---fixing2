@@ -1,6 +1,7 @@
 package com.cheetah.test.testing.ui.customercart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProviders
 import com.cheetah.test.testing.AppExecutors
 import com.cheetah.test.testing.R
@@ -84,7 +86,7 @@ class CustomerCartFragment : Fragment() , View.OnClickListener{
             if(it.status==Status.ERROR) {
                 Snackbar.make(
                     binding.root, // Parent view
-                    "Couldn't load info from network", // Message to show
+                    it.message?:"", // Message to show
                     Snackbar.LENGTH_LONG
                 ).show()
             }
@@ -95,6 +97,11 @@ class CustomerCartFragment : Fragment() , View.OnClickListener{
             val k =  it.data?.orderItemsInformation?.filter {
                 it.product?.name?.toLowerCase()!!.contains(search_et.text.toString())
             }
+            myViewModel.getOrderedItems().observe(this, Observer {
+                Log.d("PRINT_LENGTH", it?.size.toString()?:"random message")
+
+            })
+
             rvAdapter.submitList(k)
         })
     }

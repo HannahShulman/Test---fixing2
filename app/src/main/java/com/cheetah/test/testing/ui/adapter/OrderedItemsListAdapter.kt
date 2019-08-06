@@ -1,5 +1,6 @@
 package com.cheetah.test.testing.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
@@ -30,6 +31,8 @@ class OrderedItemsListAdapter(
     }
 ) {
 
+
+
     override fun createBinding(parent: ViewGroup): SingleOrederedItemInformationLayoutBinding = DataBindingUtil.inflate(
         LayoutInflater.from(parent.context),
         R.layout.single_oredered_item_information_layout,
@@ -39,6 +42,7 @@ class OrderedItemsListAdapter(
     )
 
     override fun bind(binding: SingleOrederedItemInformationLayoutBinding, item: OrderItemsInformation) {
+        Log.d("ITEM_CHECK", item.toString()+"  checking string")
         binding.itemInfo = item
         binding.singlePrice =when(item.packagingType){
             PackagingTypes.CASE.packageType->  item.product?.casePrice

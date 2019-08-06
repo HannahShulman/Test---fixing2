@@ -1,5 +1,6 @@
 package com.cheetah.test.testing.vo
 
+import androidx.paging.PagedList
 import androidx.room.*
 import com.cheetah.test.testing.roomdb.DatabaseTypeConverters
 import com.google.gson.annotations.Expose

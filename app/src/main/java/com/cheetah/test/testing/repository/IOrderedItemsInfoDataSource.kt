@@ -1,15 +1,12 @@
 package com.cheetah.test.testing.repository
 
 import androidx.lifecycle.LiveData
-import com.cheetah.test.testing.api.ApiResponse
-import com.cheetah.test.testing.vo.CustomerCart
 import com.cheetah.test.testing.vo.OrderItemsInformation
-
 
 /**
  * This class/interface is responsible for putting together all methods for getting info
  */
-interface ICustomerCartDataSource {
+interface IOrderedItemsInfoDataSource {
 
-    fun getCustomerCart(): LiveData<ApiResponse<CustomerCart>>
+    fun getOrderedItemsInfo(): LiveData<List<OrderItemsInformation>>
 }

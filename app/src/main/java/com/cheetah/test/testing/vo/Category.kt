@@ -1,5 +1,7 @@
 package com.cheetah.test.testing.vo
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

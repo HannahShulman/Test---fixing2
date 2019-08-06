@@ -6,14 +6,14 @@ import com.cheetah.test.testing.api.CustomerCartApi
 import com.cheetah.test.testing.vo.CustomerCart
 import com.cheetah.test.testing.vo.OrderItemsInformation
 
-
 /**
  * This class is responsible for implementing methods set for enquiring information
  */
 
-class CustomerCartDataSource (private val customerCartApi: CustomerCartApi):ICustomerCartDataSource {
+class OrderedItemsDataSource (private val orderedItemsRepository: CustomerCartRepository):IOrderedItemsInfoDataSource {
 
-    override fun getCustomerCart(): LiveData<ApiResponse<CustomerCart>> {
-        return customerCartApi.getCustomerCart()
+
+    override fun getOrderedItemsInfo(): LiveData<List<OrderItemsInformation>> {
+       return  orderedItemsRepository.getOrderedItemsInfo()
     }
 }

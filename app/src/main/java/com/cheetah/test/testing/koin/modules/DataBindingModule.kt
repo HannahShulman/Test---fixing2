@@ -1,8 +1,6 @@
 package com.cheetah.test.testing.koin.modules
 
-import com.cheetah.test.testing.repository.CustomerCartDataSource
-import com.cheetah.test.testing.repository.CustomerCartRepository
-import com.cheetah.test.testing.repository.ICustomerCartDataSource
+import com.cheetah.test.testing.repository.*
 import org.koin.dsl.module.module
 
 
@@ -13,7 +11,14 @@ import org.koin.dsl.module.module
 val customerCartRepositoryModule = module {
 
     single <ICustomerCartDataSource>{ CustomerCartDataSource(get()) }
-    single { CustomerCartRepository(get(), get(), get()) }
+    single { CustomerCartRepository(get(), get(), get(), get()) }
+
+}
+
+
+val orderedItemsRepositoryModule = module {
+
+    single <IOrderedItemsInfoDataSource>{ OrderedItemsDataSource(get()) }
 
 }
 

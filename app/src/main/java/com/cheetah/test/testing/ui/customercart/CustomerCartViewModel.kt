@@ -1,9 +1,11 @@
 package com.cheetah.test.testing.ui.customercart
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.cheetah.test.testing.repository.CustomerCartRepository
 import com.cheetah.test.testing.vo.CustomerCart
+import com.cheetah.test.testing.vo.OrderItemsInformation
 import com.cheetah.test.testing.vo.Resource
 
 
@@ -15,8 +17,26 @@ import com.cheetah.test.testing.vo.Resource
  */
 class CustomerCartViewModel(private val customerCartRepository: CustomerCartRepository) : ViewModel() {
 
-    fun getCustomerCart( searchString:String ? = ""): LiveData<Resource<CustomerCart>> {
+    /**
+     * @param searchString The string to filter the query when searching for items
+     */
+    fun getCustomerCart(searchString:String ? = ""): LiveData<Resource<CustomerCart>> {
+
+        /**
+         * Trying out Transformation
+         */
+        Transformations.map(customerCartRepository.getCustomerCart()) {
+             it.data?.orderItemsInformation?.filter {
+                 it.product?.name?.toLowerCase()?.contains(searchString as CharSequence)?:true
+             }
+         }
+
         return customerCartRepository.getCustomerCart()
+        }
+
+    fun getOrderedItems():LiveData<List<OrderItemsInformation>>{
+        return customerCartRepository.getOrderedItemsInfo()
     }
+
 
 }

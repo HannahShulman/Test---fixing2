@@ -3,9 +3,12 @@ package com.cheetah.test.testing.databinding
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cheetah.test.testing.R
+import com.cheetah.test.testing.ui.adapter.OrderedItemsListAdapter
+import com.cheetah.test.testing.vo.OrderItemsInformation
 
 
 /**
@@ -15,6 +18,12 @@ import com.cheetah.test.testing.R
  */
 
 class FragmentBindingAdapters constructor(private val fragment: Fragment) {
+
+
+    @BindingAdapter("data")
+    fun  setRecyclerViewProperties(recyclerView: RecyclerView, items: List<OrderItemsInformation>) {
+            (recyclerView.adapter as OrderedItemsListAdapter).submitList(items)
+    }
 
 
     @BindingAdapter("android:src")

@@ -2,6 +2,7 @@ package com.cheetah.test.testing.ui.adapter
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -27,8 +28,11 @@ abstract class DataBoundListAdapter<T, V : ViewDataBinding>(appExecutors: AppExe
     protected abstract fun createBinding(parent: ViewGroup): V
 
     override fun onBindViewHolder(holder: DataBoundViewHolder<V>, position: Int) {
-        bind(holder.binding, getItem(position))
-        holder.binding.executePendingBindings()
+        getItem(position)?.let {
+            bind(holder.binding, it)
+            holder.binding.executePendingBindings()
+        }
+
     }
 
     protected abstract fun bind(binding: V, item: T)

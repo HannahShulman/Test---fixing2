@@ -10,15 +10,13 @@ import com.cheetah.test.testing.api.ApiEmptyResponse
 import com.cheetah.test.testing.api.ApiErrorResponse
 import com.cheetah.test.testing.api.ApiResponse
 import com.cheetah.test.testing.api.ApiSuccessResponse
-import com.cheetah.test.testing.vo.CustomerCart
 import com.cheetah.test.testing.vo.Resource
 
 /**
  *
- *
  * This class is responsible for insuring constant info displayed to user.
- * takes at first from local storage, and then if has successfully fecthed data, then this is updated.
- * NOTE: info being fetched from network, is upto "ShouldFetch"
+ * takes at first from local storage, and then if has successfully fetched data, then this is updated.
+ * NOTE: info being fetched from network, is up to "ShouldFetch"
  *
  */
 abstract class NetworkBoundResource<ResultType, RequestType>
@@ -31,14 +29,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
 
-        if(dbSource.value == null) {
+        if (dbSource.value == null) {
             //first time
             fetchFromNetwork(dbSource)
-        }
-        else {
+        } else {
             result.addSource(dbSource) { data ->
-                result.removeSource(dbSource)
-                if (shouldFetch(data)) {
+                //data refers to the result type out case CustomerCart
+                result.removeSource(dbSource)//oncte info has been recieved from local, remove
+                if (shouldFetch(data)) {//if data is null after loading from local
                     fetchFromNetwork(dbSource)
                 } else {
                     result.addSource(dbSource) { newData ->
@@ -76,10 +74,9 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                             // which may not be updated with latest results received from network.
 
                             val data = loadFromDb()
-                            if(data.value == null ) {
+                            if (data.value == null) {
                                 setValue(Resource.success(processResponse(response) as ResultType))
-                            }
-                            else {
+                            } else {
                                 result.addSource(data) { newData ->
                                     setValue(Resource.success(newData))
                                 }
